@@ -37,7 +37,7 @@ public class LoggingClient {
                 )
                 .toBodilessEntity()
                 .block();
-        log.info("Log request sent successfully.");
-    }
 
+        log.info("Request to service-log sent successfully");
+    }
 }
