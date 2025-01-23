@@ -6,17 +6,22 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-
+import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import java.util.Arrays;
 
 import static bgr.matrixee.shuffle.presentation.Paths.POST_SHUFFLE;
+import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
+@AutoConfigureWireMock
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties = "spring.profiles.active=integration-test")
 class ShuffleControllerIntegrationTest {
 
     @Value("${server.url}")
     private String serverUrl;
+
+    @Value("${log-service.post-log}")
+    private String postLogPath;
 
     @LocalServerPort
     private int serverPort;
@@ -26,6 +31,11 @@ class ShuffleControllerIntegrationTest {
     @Test
     void shouldCallShuffleEndpoint() {
         //given:
+        stubFor(post(urlPathEqualTo(postLogPath))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withBody("{}")));
+
         final var url = UriComponentsBuilder.fromHttpUrl(serverUrl)
                 .port(serverPort)
                 .path(POST_SHUFFLE)
