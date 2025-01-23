@@ -1,5 +1,5 @@
 package bgr.matrixee.logging.domain;
 
-import org.springframework.http.HttpRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
-public record LoggedRequest(HttpRequest request, String body) {}
+public record LoggedRequest(HttpServletRequest request, String body) {}
