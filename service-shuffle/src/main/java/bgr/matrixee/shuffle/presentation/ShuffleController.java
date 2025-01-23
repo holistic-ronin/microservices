@@ -6,15 +6,18 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import static bgr.matrixee.shuffle.presentation.Paths.API;
+import static bgr.matrixee.shuffle.presentation.Paths.SHUFFLE;
+
 @RestController
-@RequestMapping("/api")
+@RequestMapping(API)
 @RequiredArgsConstructor
 public class ShuffleController {
 
     private final ShuffleService shuffleService;
 
     @PostMapping
-    @RequestMapping("/shuffle")
+    @RequestMapping(SHUFFLE)
     ResponseEntity<String> shuffleNumbers(@Valid @RequestBody ShuffleRequest request) {
         return ResponseEntity.ok(
                 ShuffleArrayToResponseMapper.mapToResponse(

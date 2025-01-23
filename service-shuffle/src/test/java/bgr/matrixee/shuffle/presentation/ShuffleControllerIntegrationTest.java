@@ -5,9 +5,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.Arrays;
 
+import static bgr.matrixee.shuffle.presentation.Paths.POST_SHUFFLE;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties = "spring.profiles.active=integration-test")
@@ -24,7 +26,10 @@ class ShuffleControllerIntegrationTest {
     @Test
     void shouldCallShuffleEndpoint() {
         //given:
-        final var url = serverUrl + ":" + serverPort + "/api/shuffle";
+        final var url = UriComponentsBuilder.fromHttpUrl(serverUrl)
+                .port(serverPort)
+                .path(POST_SHUFFLE)
+                .toUriString();
 
         final var request = new ShuffleRequest(5);
 
