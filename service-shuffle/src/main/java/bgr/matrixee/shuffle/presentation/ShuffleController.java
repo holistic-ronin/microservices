@@ -18,7 +18,7 @@ public class ShuffleController {
 
     @PostMapping
     @RequestMapping(SHUFFLE)
-    ResponseEntity<String> shuffleNumbers(@Valid @RequestBody ShuffleRequest request) {
+    ResponseEntity<String> shuffleNumbers(@Valid @RequestBody final ShuffleRequest request) {
         return ResponseEntity.ok(
                 ShuffleArrayToResponseMapper.mapToResponse(
                         shuffleService.createAndShuffleArray(request.numbersToShuffleCount()))
