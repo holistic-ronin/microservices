@@ -4,4 +4,4 @@ server:
 
 log-service:
   base-url: http://localhost:${wiremock.server.port}
-  post-log: /log
+  post-log: /api/log
