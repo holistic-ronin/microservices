@@ -1,0 +1,19 @@
+services:
+  service-shuffle:
+    build:
+      context: ./service-shuffle
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      LOG_SERVICE_BASE_URL: http://service-log:8081
+      POST_LOG: /log
+    depends_on:
+      - service-log
+
+  service-log:
+    build:
+      context: ./service-log
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"

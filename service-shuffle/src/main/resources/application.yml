@@ -2,5 +2,5 @@ server:
   url: http://localhost:8080
   port: 8080
 log-service:
-  url: http://localhost:8081
-  post-log: /log
+  base-url: ${LOG_SERVICE_BASE_URL:http://localhost:8081}
+  post-log: ${POST_LOG:/log}
