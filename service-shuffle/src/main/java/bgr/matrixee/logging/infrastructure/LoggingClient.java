@@ -20,6 +20,7 @@ public class LoggingClient {
     }
 
     private void sendLoggedRequest(final WebClient client, final LoggedRequest loggedRequest) {
+        log.info("Sending log request to service-log with body: {}", loggedRequest.body());
         client.post()
                 .uri(configuration.getPostLogPath())
                 .bodyValue(loggedRequest)
@@ -27,15 +28,16 @@ public class LoggingClient {
                 .onStatus(HttpStatusCode::isError, response ->
                         response.bodyToMono(String.class)
                                 .doOnNext(body -> log.warn(
-                                        "Logging failed via service-log: Status: {}, Response body: {}, Request body: {}, Path: {}",
+                                        "Logging failed via service-log: Status: {}, Response body: {}, Request body: {}",
                                         response.statusCode(),
                                         body,
-                                        loggedRequest.body(),
-                                        loggedRequest.uri()
+                                        loggedRequest.body()
                                 ))
                                 .then(Mono.empty())
                 )
                 .toBodilessEntity()
                 .block();
+        log.info("Log request sent successfully.");
     }
+
 }
