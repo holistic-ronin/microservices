@@ -7,7 +7,7 @@ import java.util.stream.*;
 
 @Component
 final class ShuffledArrayFactory {
-    int[] create(int numberToShuffle) {
+    int[] create(final int numberToShuffle) {
         final var list = IntStream.rangeClosed(1, numberToShuffle)
                 .boxed()
                 .collect(Collectors.toList());

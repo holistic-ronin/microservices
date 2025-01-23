@@ -5,7 +5,7 @@ import java.util.Arrays;
 final class ShuffleArrayToResponseMapper {
     private ShuffleArrayToResponseMapper() {}
 
-    public static ShuffleResponse mapToResponse(int[] shuffledArray) {
+    public static ShuffleResponse mapToResponse(final int[] shuffledArray) {
         return new ShuffleResponse(
                 Arrays.toString(shuffledArray)
         );
