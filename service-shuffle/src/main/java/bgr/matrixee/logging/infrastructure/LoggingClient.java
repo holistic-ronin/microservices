@@ -31,7 +31,7 @@ public class LoggingClient {
                                         response.statusCode(),
                                         body,
                                         loggedRequest.body(),
-                                        loggedRequest.request().getRequestURI()
+                                        loggedRequest.uri()
                                 ))
                                 .then(Mono.empty())
                 )
