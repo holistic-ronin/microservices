@@ -1,6 +1,7 @@
 package bgr.matrixee.shuffle.presentation;
 
 import bgr.matrixee.shuffle.domain.*;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -14,14 +15,14 @@ import static bgr.matrixee.shuffle.presentation.Paths.SHUFFLE;
 @RequiredArgsConstructor
 public class ShuffleController {
 
-    private final ShuffleService shuffleService;
+    private final ShuffleFacade shuffleFacade;
 
-    @PostMapping
-    @RequestMapping(SHUFFLE)
-    ResponseEntity<String> shuffleNumbers(@Valid @RequestBody final ShuffleRequest request) {
+    @PostMapping(SHUFFLE)
+    ResponseEntity<String> shuffleNumbers(@Valid @RequestBody final ShuffleRequestBody body,
+                                          final HttpServletRequest request) {
         return ResponseEntity.ok(
                 ShuffleArrayToResponseMapper.mapToResponse(
-                        shuffleService.createAndShuffleArray(request.numbersToShuffleCount()))
+                                shuffleFacade.shuffleArray(request, body.numbersToShuffleCount()))
                         .shuffledNumbers()
         );
     }
