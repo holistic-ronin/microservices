@@ -1,3 +1,6 @@
+application:
+  service-name: service-shuffle
+
 server:
   port: 8080
 
