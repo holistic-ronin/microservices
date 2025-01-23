@@ -9,6 +9,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.Collections;
 
+@Getter
 @Configuration
 @RequiredArgsConstructor
 public class LoggingWebClientConfiguration {
@@ -16,12 +17,11 @@ public class LoggingWebClientConfiguration {
     @Value("${log-service.base-url}")
     private String baseUrl;
 
-    @Getter
     @Value("${log-service.post-log}")
     private String postLogPath;
 
     @Bean
-    public WebClient loggingWebClient() {
+    WebClient loggingWebClient() {
         return WebClient.builder()
                 .baseUrl(this.baseUrl)
                 .defaultHeaders(headers -> {
