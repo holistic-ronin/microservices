@@ -17,7 +17,7 @@ class ShuffleControllerTest {
     void shouldReturnShuffledResponse() {
         //given:
         final var numberToShuffle = 5;
-        final var request = new ShuffleRequest(numberToShuffle);
+        final var request = new ShuffleRequestBody(numberToShuffle);
         final var shuffledArray = new int[]{4, 2, 1, 5, 3};
         when(service.createAndShuffleArray(numberToShuffle)).thenReturn(shuffledArray);
 

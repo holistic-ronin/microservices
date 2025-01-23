@@ -18,7 +18,7 @@ class ShuffleServiceTest {
         when(factory.create(numberToShuffle)).thenReturn(shuffledArray);
 
         //when:
-        final var result = service.createAndShuffleArray(numberToShuffle);
+        final var result = service.shuffleArray(numberToShuffle);
 
         //then:
         assertThat(result).isEqualTo(shuffledArray);

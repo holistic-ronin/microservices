@@ -31,7 +31,7 @@ class ShuffleControllerIntegrationTest {
                 .path(POST_SHUFFLE)
                 .toUriString();
 
-        final var request = new ShuffleRequest(5);
+        final var request = new ShuffleRequestBody(5);
 
         //when:
         final var response = restTemplate.postForObject(url, request, String.class);
