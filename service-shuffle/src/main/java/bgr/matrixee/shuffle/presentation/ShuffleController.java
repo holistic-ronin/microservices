@@ -20,8 +20,9 @@ public class ShuffleController {
     @PostMapping(SHUFFLE)
     ResponseEntity<String> shuffleNumbers(@Valid @RequestBody final ShuffleRequestBody body,
                                           final HttpServletRequest request) {
-        final var response = ShuffleArrayToResponseMapper.mapToResponse(
-                shuffleFacade.shuffleArray(request, body.numbersToShuffleCount())).shuffledNumbers();
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(
+                ShuffleArrayToResponseMapper.mapToResponse(
+                        shuffleFacade.shuffleArray(request, body.numbersToShuffleCount())).shuffledNumbers()
+        );
     }
 }

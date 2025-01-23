@@ -15,13 +15,9 @@ public class LoggingClient {
     private final WebClient loggingWebClient;
     private final LoggingWebClientConfiguration configuration;
 
-    public void logRequest(final LoggedRequest loggedRequest) {
-        sendLoggedRequest(loggingWebClient, loggedRequest);
-    }
-
-    private void sendLoggedRequest(final WebClient client, final LoggedRequest loggedRequest) {
-        log.info("Sending log request to service-log with body: {}", loggedRequest.body());
-        client.post()
+    public void logRequestAsync(final LoggedRequest loggedRequest) {
+        log.info("Sending log request to service-log asynchronously with body: {}", loggedRequest.body());
+        loggingWebClient.post()
                 .uri(configuration.getPostLogPath())
                 .bodyValue(loggedRequest)
                 .retrieve()
@@ -33,11 +29,11 @@ public class LoggingClient {
                                         body,
                                         loggedRequest.body()
                                 ))
-                                .then(Mono.empty())
+                                .then(Mono.error(new RuntimeException("Service-log call failed")))
                 )
                 .toBodilessEntity()
-                .block();
-
-        log.info("Request to service-log sent successfully");
+                .doOnSuccess(response -> log.info("Log request sent successfully to service-log"))
+                .doOnError(error -> log.error("Error occurred while logging via service-log: {}", error.getMessage()))
+                .subscribe();
     }
 }

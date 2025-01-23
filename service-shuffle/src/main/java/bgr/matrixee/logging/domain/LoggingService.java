@@ -10,6 +10,6 @@ public class LoggingService {
     private final LoggingClient loggingClient;
 
     public void logRequest(final LoggedRequest request) {
-        loggingClient.logRequest(request);
+        loggingClient.logRequestAsync(request);
     }
 }
