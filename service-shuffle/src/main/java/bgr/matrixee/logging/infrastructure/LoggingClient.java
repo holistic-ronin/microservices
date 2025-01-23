@@ -26,14 +26,16 @@ public class LoggingClient {
                 .retrieve()
                 .onStatus(HttpStatusCode::isError, response ->
                         response.bodyToMono(String.class)
-                                .doOnNext(body -> log.warn("Logging via service-log failed with status: {} and response body: {}",
-                                        response.statusCode(), body))
+                                .doOnNext(body -> log.warn(
+                                        "Logging failed via service-log: Status: {}, Response body: {}, Request body: {}, Path: {}",
+                                        response.statusCode(),
+                                        body,
+                                        loggedRequest.body(),
+                                        loggedRequest.request().getRequestURI()
+                                ))
                                 .then(Mono.empty())
                 )
                 .toBodilessEntity()
                 .block();
     }
 }
-
-
-
