@@ -1,13 +1,12 @@
 package bgr.matrixee.log.presentation;
 
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 @Getter
 @ToString
 @AllArgsConstructor
+@NoArgsConstructor
 class LogRequest {
     @NotBlank
     private String serviceName;
