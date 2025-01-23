@@ -9,7 +9,7 @@ public class ShuffleService {
 
     private final ShuffledArrayFactory shuffledArrayFactory;
 
-    public int[] createAndShuffleArray(final int numbersToShuffleCount) {
+    int[] shuffleArray(final int numbersToShuffleCount) {
         return shuffledArrayFactory.create(numbersToShuffleCount);
     }
 }
